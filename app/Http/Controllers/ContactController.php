@@ -127,7 +127,9 @@ class ContactController extends Controller
             return response()->json(['message' => 'User not found', 'success' => false], 404);
         }
 
-        $contact->delete();
+        $contact->deleted_by = auth()->user()->id;
+        $contact->deleted_at = date('Y-m-d H:i:s');
+        $contact->save();
         return response()->json(['message' => 'The contact has been deleted.', 'success' => true]);
     }
 }

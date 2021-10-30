@@ -16,7 +16,7 @@ class AddColumnsContactTable extends Migration
         Schema::table('contacts', function (Blueprint $table) {
             $table->integer('created_by')->nullable()->after('email');
             $table->integer('updated_by')->nullable()->after('updated_at');
-            $table->integer('deleted_by')->nullable()->after('email');
+            $table->integer('deleted_by')->nullable()->after('deleted_at');
         });
     }
 

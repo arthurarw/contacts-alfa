@@ -21,7 +21,8 @@ class ContactFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'contact' => $this->generateUniqueContact()
+            'contact' => $this->generateUniqueContact(),
+            'created_by' => 1
         ];
     }
 

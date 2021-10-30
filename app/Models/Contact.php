@@ -14,11 +14,19 @@ class Contact extends Model
     protected $fillable = [
         'name',
         'contact',
-        'email'
+        'email',
+        'created_by',
+        'updated_by',
+        'deleted_by'
     ];
 
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = ucfirst($value);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 }

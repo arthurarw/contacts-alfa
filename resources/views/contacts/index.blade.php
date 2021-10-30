@@ -41,7 +41,7 @@
             @foreach ($data as $value)
                 <tr>
                     <td>{{$value->id}}</td>
-                    <td>{{$value->name}}</td>
+                    <td><a href="{{ route('contacts.show', $value->id) }}">{{$value->name}}</a></td>
                     <td>{{$value->contact}}</td>
                     <td>{{$value->email}}</td>
                     <td>{{$value->created_at}}</td>
