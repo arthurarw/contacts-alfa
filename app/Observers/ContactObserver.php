@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Contact;
+use Illuminate\Support\Facades\Auth;
 
 class ContactObserver
 {
@@ -14,7 +15,9 @@ class ContactObserver
      */
     public function creating(Contact $contact)
     {
-        $contact->created_by = auth()->user()->id;
+        if (Auth::check()) {
+            $contact->created_by = auth()->user()->id;
+        }
     }
 
     /**
@@ -25,6 +28,8 @@ class ContactObserver
      */
     public function updating(Contact $contact)
     {
-        $contact->updated_by = auth()->user()->id;
+        if (Auth::check()) {
+            $contact->updated_by = auth()->user()->id;
+        }
     }
 }
