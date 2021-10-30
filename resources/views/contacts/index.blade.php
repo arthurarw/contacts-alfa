@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
     <div class="row">
@@ -100,7 +100,23 @@
                                 }
                             },
                             error: function (error) {
-                                console.log(error);
+                                if (error.status === 401) {
+                                    Swal.fire({
+                                        title: 'Whoops!',
+                                        text: 'Unauthorized!',
+                                        icon: 'warning'
+                                    }).then((result) => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Sorry!',
+                                        text: 'Unknown error',
+                                        icon: 'warning'
+                                    }).then((result) => {
+                                        location.reload();
+                                    });
+                                }
                             }
                         });
                     }
