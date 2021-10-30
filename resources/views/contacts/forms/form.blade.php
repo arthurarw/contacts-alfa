@@ -6,14 +6,14 @@
             <div class="float-left">
                     <h2>
                         @if(isset($contact))
-                            Update Contact {{$contact->name}}
+                            Update Contact: {{$contact->name}}
                         @else
                             Add New Contact
                         @endif
                     </h2>
             </div>
             <div class="float-end">
-                <a href="{{route('index')}}" class="btn btn-primary">Back</a>
+                <a href="{{route('index')}}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Your name" name="name" required>
+                    <input type="text" class="form-control" value="{{ empty($contact->name) ? old('name') : $contact->name }}" id="name" placeholder="Your name" name="name" required>
                 </div>
             </div>
         </div>
@@ -49,13 +49,13 @@
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="mb-3">
                     <label for="contact" class="form-label">Contact</label>
-                    <input type="tel" class="form-control" id="contact" placeholder="999999999" name="contact" required maxlength="9">
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" value="{{ empty($contact->contact) ? old('contact') : $contact->contact }}" id="contact" placeholder="999999999" name="contact" required maxlength="9">
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" required>
+                    <input type="email" class="form-control" value="{{ empty($contact->email) ? old('email') : $contact->email }}" id="email" placeholder="name@example.com" name="email" required>
                 </div>
             </div>
         </div>

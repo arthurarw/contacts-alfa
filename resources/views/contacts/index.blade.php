@@ -7,7 +7,7 @@
                 <h2>Contact List - Alfa</h2>
             </div>
             <div class="float-end">
-                <a class="btn btn-success" href="{{route('contacts.create')}}"> New Contact</a>
+                <a class="btn btn-success" href="{{route('contacts.create')}}"><i class="fas fa-plus-circle"></i> New Contact</a>
             </div>
         </div>
     </div>
@@ -15,6 +15,16 @@
     @if ($message = \Illuminate\Support\Facades\Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger mt-3">
+            <strong>Whoops!</strong> We found some errors:<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 
@@ -36,11 +46,11 @@
                     <td>{{$value->email}}</td>
                     <td>{{$value->created_at}}</td>
                     <td>
-                        <a class="btn btn-info" href="{{ route('contacts.show', $value->id) }}">Show</a>
-                        <a class="btn btn-primary" href="{{ route('contacts.edit', $value->id) }}">Edit</a>
+                        <a class="btn btn-info" href="{{ route('contacts.show', $value->id) }}"><i class="fas fa-eye"></i> Show</a>
+                        <a class="btn btn-primary" href="{{ route('contacts.edit', $value->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
 
                         <a class="btn btn-danger buttonDelete" data-destroy="{{$value->id}}" id="buttonDelete"
-                           href="{{route('contacts.destroy', $value->id)}}">Delete</a>
+                           href="{{route('contacts.destroy', $value->id)}}"><i class="fas fa-trash-alt"></i> Delete</a>
                     </td>
                 </tr>
             @endforeach
@@ -60,9 +70,6 @@
                 e.preventDefault();
 
                 let contactId = $(this).data('destroy');
-                // let url = e.target;
-                // let token = $("meta[name='csrf-token']").attr("content");
-
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",

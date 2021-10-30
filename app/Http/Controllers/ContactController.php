@@ -15,7 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::latest()->paginate(5);
+        $contacts = Contact::orderBy('created_at', 'DESC')->paginate(5);
 
         return view('contacts.index', [
             'data' => $contacts
@@ -42,12 +42,6 @@ class ContactController extends Controller
     {
         $request->validated();
 
-        /*$validateUnique = Contact::where('email', $request->input('email'))->orWhere('contact', $request->input('contact'))->exists();
-        if ($validateUnique) {
-            return redirect()->route('contacts.create')
-                ->withErrors('The email address or contact already exists.');
-        }*/
-
         Contact::create($request->all());
         return redirect()->route('contacts.index')
             ->with('success', 'Contact created successfully.');
@@ -61,9 +55,15 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-//        $contact
+        $contact = Contact::where('id', $id)->first();
+        if (empty($contact)) {
+            return redirect()->route('contacts.index')
+                ->withErrors('Contact not found.');
+        }
 
-        return view('contacts.show');
+        return view('contacts.show', [
+            'contact' => $contact
+        ]);
     }
 
     /**
@@ -74,7 +74,15 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::where('id', $id)->first();
+        if (empty($contact)) {
+            return redirect()->route('contacts.index')
+                ->withErrors('Contact not found.');
+        }
+
+        return view('contacts.forms.form', [
+            'contact' => $contact
+        ]);
     }
 
     /**
@@ -84,9 +92,19 @@ class ContactController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreContactRequest $request, $id)
     {
-        //
+        $contact = Contact::where('id', $id)->first();
+        if (empty($contact)) {
+            return redirect()->route('contacts.index')
+                ->withErrors('Contact not found.');
+        }
+
+        $request->validated();
+
+        $contact->update($request->all());
+        return redirect()->route('contacts.index')
+            ->with('success', 'Contact updated successfully.');
     }
 
     /**

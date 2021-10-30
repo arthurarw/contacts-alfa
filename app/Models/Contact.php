@@ -16,4 +16,9 @@ class Contact extends Model
         'contact',
         'email'
     ];
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucfirst($value);
+    }
 }

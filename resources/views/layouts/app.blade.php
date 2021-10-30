@@ -14,8 +14,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{url('/js/feather.min.js')}}"></script>
-<script src="https://unpkg.com/imask"></script>
+<script src="https://kit.fontawesome.com/3c2b3e6f42.js" crossorigin="anonymous"></script>
 @yield('js')
 </body>
 </html>

@@ -23,11 +23,11 @@ class StoreContactRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
+        $id = $this->segment(2);
 
         return [
             'name' => 'required|min:5|max:255',
-            'contact' => "required|max:9|unique:contacts,contact,{$id},id",
+            'contact' => "required|min:9|max:9|unique:contacts,contact,{$id},id",
             'email' => "required|email|unique:contacts,email,{$id},id"
         ];
     }
