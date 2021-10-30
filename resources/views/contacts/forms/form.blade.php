@@ -30,10 +30,10 @@
     @endif
 
     @if (isset($contact))
-        <form action="{{ route('contacts.update', ['contact' => $contact]) }}" method="POST">
+        <form action="{{ route('contacts.update', ['contact' => $contact]) }}" method="POST" id="formContact">
         @method('PUT')
     @else
-        <form action="{{ route('contacts.store') }}" method="POST">
+        <form action="{{ route('contacts.store') }}" method="POST" id="formContact">
     @endif
         @csrf
 
@@ -49,7 +49,7 @@
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="mb-3">
                     <label for="contact" class="form-label">Contact</label>
-                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" value="{{ empty($contact->contact) ? old('contact') : $contact->contact }}" id="contact" placeholder="999999999" name="contact" required maxlength="9">
+                    <input type="tel" class="form-control" value="{{ empty($contact->contact) ? old('contact') : $contact->contact }}" id="contact" placeholder="999999999" name="contact" required maxlength="9">
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -65,4 +65,30 @@
             </div>
         </div>
     </form>
+@endsection
+
+@section('js')
+    <script>
+        $(function(){
+            $("#formContact").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    name: {
+                        required: true,
+                        minlength: 5
+                    },
+                    contact: {
+                        required: true,
+                        minlength: 9,
+                        maxlength: 9,
+                        digits: true
+                    }
+                }
+            });
+        });
+
+    </script>
 @endsection
